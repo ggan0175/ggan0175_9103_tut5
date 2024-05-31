@@ -8,6 +8,18 @@ This project displays a series of dynamic circles on a canvas, which move, rotat
 - **Page Loading**: Upon loading the page, the animation will automatically start. No action is required by the viewers to see the dynamic behaviors of the circles.
 - **Animation Duration**: The animation is continuous, with circles endlessly scrolling across the screen, accompanied by rotational and scaling transformations.
 
+# Project Visual Inspirations
+
+## Windmill Movement Inspiration
+
+![Windmill](assets/windmill.jpg)
+*This image of a windmill captures its continuous and graceful movements, which inspired the rotational aspects of the animations in our project.*
+
+## Breathing Rhythm Visualization
+
+![Breathing Rhythm](assets/breathing.jpg)
+*A graphical representation of breathing rhythms that inspired the scaling animation, mimicking the natural expansion and contraction found in living organisms.*
+
 ## Animation Method
 
 - **Animation Drive**: The animation is time-based, using timers and events within the `p5.js` `draw()` function to achieve dynamic effects. This means every frame of the animation updates the position, angle, and size of the circles based on time.
