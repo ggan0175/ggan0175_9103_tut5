@@ -29,6 +29,37 @@ The following are the image properties that will be animated and how they will b
 - **Rotation**: Each circle will rotate around its center.
 - **Scaling**: The circles will increase and decrease in size according to a periodic pattern, mimicking the effect of breathing.
 
+## Interaction and Time-Based Animation Details
+
+### Mouse Interactions
+
+Our project incorporates interactive elements that respond to mouse movements, enhancing the user engagement and visual dynamics of the artwork. Here's how we handle mouse interactions:
+
+- **Mouse Movement Detection**:
+  We detect the mouse movement across the canvas and adjust the properties of the circles based on the proximity to the mouse cursor. This interaction allows the circles to expand when the mouse hovers over them, creating an interactive experience.
+
+  ```javascript
+  function mouseMoved() {
+    circles.forEach(circle => {
+      let distance = dist(mouseX, mouseY, circle.x, circle.y);
+      if (distance < circle.diameter / 2) {
+        circle.diameter = min(circle.diameter + 10, 300);  // Expand circle but limit maximum diameter
+      } else {
+        circle.diameter = max(circle.diameter - 1, 100);  // Shrink circle but maintain minimum diameter
+      }
+    });
+  }
+
+In this way, detailed explanations of how to dynamically update animations using mouse interactions and the passage of time are provided, with code examples and explanations that make the technical implementation more transparent and easier to understand.
+
+## Time-Based Animation
+
+The animation's progression is primarily controlled through time-based calculations, which allow for smooth and continuous animations that evolve as time progresses. Here's how we achieve this:
+
+### Time-Based Property:
+Each frame updates the position, rotation, and scale of the circles using time as a factor, ensuring smooth transitions and consistent animations regardless of frame rate.
+
+
 ## Project Visual Inspirations
 
 Our project draws inspiration from a variety of sources, reflecting the intersection of natural dynamics and artistic innovation.
