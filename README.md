@@ -8,34 +8,6 @@ This project displays a series of dynamic circles on a canvas, which move, rotat
 - **Page Loading**: Upon loading the page, the animation will automatically start. No action is required by the viewers to see the dynamic behaviors of the circles.
 - **Animation Duration**: The animation is continuous, with circles endlessly scrolling across the screen, accompanied by rotational and scaling transformations.
 
-# Animation Inspiration
-
-## Natural Phenomena
-
-### Windmills
-
-![Windmill in Motion](http://example.com/windmill.jpg](https://png.pngtree.com/thumb_back/fw800/background/20231009/pngtree-3d-render-of-wind-turbines-in-motion-image_13589179.png)](https://png.pngtree.com/thumb_back/fw800/background/20231009/pngtree-3d-render-of-wind-turbines-in-motion-image_13589179.png))
-*Windmill in Motion: This image of a windmill captures its continuous and graceful movements, which inspired the rotational aspects of the animations in our project.*
-
-### Breathing Rhythms
-
-![Breathing Rhythm Visualization](http://example.com/breathing.jpg)
-*Breathing Rhythm Visualization: A graphical representation of breathing rhythms that inspired the scaling animation, mimicking the natural expansion and contraction found in living organisms.*
-
-## Dynamic Systems in Art
-
-### M.C. Escher's Artwork
-
-![Escher's Infinite Staircase](http://example.com/escher.jpg)
-*M.C. Escher's Infinite Staircase: Escher's exploration of infinite loops and complex symmetries influenced our approach to creating repetitive and engaging patterns in the animations.*
-
-## Interactive Design
-
-### Interactive Art Installation
-
-![Interactive Art by Rafael Lozano-Hemmer](http://example.com/interactive_art.jpg)
-*Interactive Art by Rafael Lozano-Hemmer: This image shows an interactive art installation where audience movements influence the art display, similar to how user interactions might affect elements in our project.*
-
 ## Animation Method
 
 - **Animation Drive**: The animation is time-based, using timers and events within the `p5.js` `draw()` function to achieve dynamic effects. This means every frame of the animation updates the position, angle, and size of the circles based on time.
