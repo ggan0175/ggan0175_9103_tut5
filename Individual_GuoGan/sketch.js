@@ -1,78 +1,56 @@
-let numCircles = 20; // Number of circular shapes
-let circles = []; // Array to store circle objects
+let numCircles = 20;  // Number of circular shapes
+let circles = [];     // Array to store circle objects
 
-
-function setup() 
-{
+function setup() {
   angleMode(DEGREES);
   createCanvas(windowWidth, windowHeight);
   createNonOverlappingCircle();
 }
 
-function draw() 
-{
+function draw() {
   background(220);
-  for (const circle of circles)
-    {
-      circle.display();
-      circle.move(); // Move the circle
-    }
-}
-
-function windowResized()
-{
-  resizeCanvas(windowWidth,windowHeight);
-  createNonOverlappingCircle(); //Call function to create more if number is not met.
-}
-
-function createNonOverlappingCircle() 
-{
-  for (let i = 0; i < numCircles; i++)  //Populating circles in to circles array
-  {  
-    let diameter = random(130, 200); //diameter of main circle
-    let circleColor = color(random(255), random(255), random(255)); //colour of main circle
-    let numSmallCircles = round(random(30, 50)); // Number of small circles around the diameter
-    let smallCircleColor = color(random(255), random(255), random(255)); //colour of small circle
-    let numLayers = 5; // Number of layers inside the main circle
-    let tempCircle = new Circle(random(width), random(height), diameter, circleColor, numSmallCircles, smallCircleColor, numLayers);
-
-    if(checkOverlap(tempCircle))
-      {
-        tempCircle.x = random(width); //If true (overlap) keep randomising
-        tempCircle.y = random(height);
-      }
-      else if(circles.length<numCircles) //If false (not overlap) check if the array objects are still less than numCircles
-      {
-        circles.push(tempCircle); //If total number is not met add more to array
-        createNonOverlappingCircle(); //Keep restarting functions as it will stop after i=numCircles eventhough total is not met.
-      }
-      else
-      {
-        break; //If total is met break out of loop
-      }
-
+  drawBackground();  // Draw the dynamic background
+  for (const circle of circles) {
+    circle.display();
+    circle.move();   // Update the position, rotation, and scaling of each circle
   }
 }
 
-//Checking the overlap with all existing circles array members
-function checkOverlap(tempCircle) 
-{
-  for (let i = 0; i < circles.length; i++) 
-    {
-      let d = dist(tempCircle.x, tempCircle.y, circles[i].x, circles[i].y);
-      if (d < (tempCircle.diameter / 2 + circles[i].diameter / 2)+5) // a generative AI was used in creating the checking logic.
-        {
-          return true; //If overlapped, returns true.
-        }
-    }
-  return false; //If not overlapped, returns false.
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  createNonOverlappingCircle();
 }
 
-//Class for generating circle
-class Circle 
-{
-  constructor(x, y, diameter, circleColor, numSmallCircles, smallCircleColor, numLayers)
-  {
+// Function to create circles ensuring they do not overlap
+function createNonOverlappingCircle() {
+  circles = [];  // Reset circles array to avoid overlap when window is resized
+  while (circles.length < numCircles) {
+    let diameter = random(130, 200);
+    let circleColor = color(random(255), random(255), random(255));
+    let numSmallCircles = round(random(30, 50));
+    let smallCircleColor = color(random(255), random(255), random(255));
+    let numLayers = 5;
+    let tempCircle = new Circle(random(width), random(height), diameter, circleColor, numSmallCircles, smallCircleColor, numLayers);
+
+    if (!checkOverlap(tempCircle)) {
+      circles.push(tempCircle);
+    }
+  }
+}
+
+// Check if a circle overlaps with any existing circle
+function checkOverlap(tempCircle) {
+  for (let circle of circles) {
+    let d = dist(tempCircle.x, tempCircle.y, circle.x, circle.y);
+    if (d < (tempCircle.diameter / 2 + circle.diameter / 2) + 5) {
+      return true;
+    }
+  }
+  return false;
+}
+
+class Circle {
+  constructor(x, y, diameter, circleColor, numSmallCircles, smallCircleColor, numLayers) {
     this.x = x;
     this.y = y;
     this.diameter = diameter;
@@ -80,68 +58,70 @@ class Circle
     this.numSmallCircles = numSmallCircles;
     this.smallCircleColor = smallCircleColor;
     this.numLayers = numLayers;
-    this.speed = random(3, 6); // move speed
-    this.angle = 0; // rotation angle
-    this.scale = 1; // scale
-    this.scaleSpeed = random(0.001, 0.005); // scale speed
+    this.speed = random(3, 6);
+    this.angle = 0;
+    this.scale = 1;
+    this.scaleSpeed = random(0.001, 0.005);
+    this.gradient = [circleColor, color(random(255), random(255), random(255))];
   }
 
-
-  display() 
-  {
+  // Display the circle with all its properties
+  display() {
     push();
-    translate(this.x, this.y)
+    translate(this.x, this.y);
     rotate(this.angle);
     scale(this.scale);
-    translate(-this.x, -this.y)
-    // Draw main circle
-    fill(this.circleColor);
-    noStroke();
-    circle(this.x, this.y, this.diameter);
-
-    //Drawing the center disk
-    for (let i = 0; i<8; i++)
-      {
-        stroke(0);
-        ellipse(this.x, this.y, this.diameter*0.5-(i*10));
+    translate(-this.x, -this.y);
+    // Create a color gradient effect within the main circle
+    for (let i = 0; i < 1; i += 0.1) {
+      fill(lerpColor(this.gradient[0], this.gradient[1], i));
+      ellipse(this.x, this.y, this.diameter * (1 - i));
+    }
+    // Draw the central disk and smaller circles with rotation and scaling
+    for (let l = 1; l <= this.numLayers; l++) {
+      let layerRadius = this.diameter / 2 * (1 - l / (this.numLayers + 5));
+      for (let i = 0; i < this.numSmallCircles; i++) {
+        let angle = (360 / this.numSmallCircles * i);
+        let sx = this.x + cos(angle) * layerRadius;
+        let sy = this.y + sin(angle) * layerRadius;
+        fill(this.smallCircleColor);
+        ellipse(sx, sy, 10);
       }
-  
-
-    // Draw small circles layers inside the main circle
-    for (let l = 1; l <= this.numLayers; l++)
-      {
-        let layerRadius = this.diameter / 2 * (1 - l / (this.numLayers+5)); // a generative AI was used in creating the layerRadius logic.
-        for (let i = 0; i < this.numSmallCircles; i++) 
-          {
-            let angle = (360/this.numSmallCircles*i);
-            let sx = this.x + cos(angle) * (layerRadius);
-            let sy = this.y + sin(angle) * (layerRadius);
-            fill(this.smallCircleColor);
-            ellipse(sx, sy, 10);
-          }
-      }
-      pop();
+    }
+    pop();
   }
 
-  move()
-  {
-    // Horizontal movement
+  // Update the movement, rotation, and scaling of the circle
+  move() {
     this.x += this.speed;
-    // Return to the left after exceeding the screen
     if (this.x >= width + this.diameter / 2) {
       this.x = -this.diameter / 2;
     }
-    // Increase rotation angle
     this.angle += 1;
-    // Increase scale
-    this.scale += this.scaleSpeed
-    // Shrink after exceeding 1.2
-    if (this.scale >= 1.2) {
-      this.scaleSpeed = -random(0.001, 0.005);
-    }
-    // Enlarge after being less than 0.8
-    if (this.scale <= 0.8) {
-      this.scaleSpeed = random(0.001, 0.005);
+    this.scale += this.scaleSpeed;
+    if (this.scale >= 1.2 || this.scale <= 0.8) {
+      this.scaleSpeed = -this.scaleSpeed;
     }
   }
+}
+
+// Draw a dynamic background with a subtle moving gradient
+function drawBackground() {
+  let bgY = 0;
+  bgY += 0.5;
+  for (let i = 0; i < height; i++) {
+    stroke(lerpColor(color(102, 153, 255), color(255, 102, 153), (i + bgY) % height / height));
+    line(0, i, width, i);
+  }
+}
+
+function mouseMoved() {
+  circles.forEach(circle => {
+    let d = dist(mouseX, mouseY, circle.x, circle.y);
+    if (d < circle.diameter / 2) {
+      circle.diameter += 5;
+    } else {
+      circle.diameter -= 5;
+    }
+  });
 }
