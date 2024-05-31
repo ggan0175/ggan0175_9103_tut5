@@ -14,7 +14,7 @@ This project displays a series of dynamic circles on a canvas, which move, rotat
 
 ### Windmills
 
-![Windmill in Motion]([http://example.com/windmill.jpg](https://png.pngtree.com/thumb_back/fw800/background/20231009/pngtree-3d-render-of-wind-turbines-in-motion-image_13589179.png))
+![Windmill in Motion](http://example.com/windmill.jpg](https://png.pngtree.com/thumb_back/fw800/background/20231009/pngtree-3d-render-of-wind-turbines-in-motion-image_13589179.png)](https://png.pngtree.com/thumb_back/fw800/background/20231009/pngtree-3d-render-of-wind-turbines-in-motion-image_13589179.png))
 *Windmill in Motion: This image of a windmill captures its continuous and graceful movements, which inspired the rotational aspects of the animations in our project.*
 
 ### Breathing Rhythms
