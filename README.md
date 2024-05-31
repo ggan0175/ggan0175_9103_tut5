@@ -8,14 +8,35 @@ This project, developed using p5.js, showcases a series of dynamic animated circ
 
 This interactive artwork features a series of dynamic circles that move, rotate, and scale based on time. Each circle consists of multiple layers, with smaller circles embedded within, creating a visually rich, layered effect.
 
-### Interaction Guide
+## Interactive Dynamic Circle Art Project
 
-- **Page Loading**: Upon loading the web page, the animation automatically initiates. The dynamic behavior of the circles can be observed without any user interaction.
-- **Animation Duration**: The animation runs continuously, with the circles scrolling endlessly across the screen. This movement is complemented by rotational and scaling transformations that add depth and interest.
+## Interactive Guide
+
+- **Page Load**: Animation will start automatically when the page is loaded. All animations are designed to be viewed without user input.
+- **Animation Timing**: The main animation effects, such as scrolling and zooming of the circles, will continue with no fixed end time. The motion period of each circle is set to complete the scrolling within the screen width and then restart from the starting point.
+
+## Animation methods in detail
+
+### Animation driver
+
+I've chosen to use a time-based method to drive the animation, which involves using timers and events in the `draw()` function of `p5.js`. This method allows the animation to update the position, angle and size of the circle at each frame based on elapsed time.
+
+### Animation properties
+
+The following are the image properties that will be animated and how they will be animated:
+
+- **Horizontal Scroll**: The circle will scroll horizontally across the screen, and re-enter from the other side after going beyond the screen.
+- **Rotation**: Each circle will rotate around its center.
+- **Scaling**: The circles will increase and decrease in size according to a periodic pattern, mimicking the effect of breathing.
 
 ## Project Visual Inspirations
 
 Our project draws inspiration from a variety of sources, reflecting the intersection of natural dynamics and artistic innovation.
+
+## Animation Inspiration
+
+![Wheels of fortune](assets/Pacita%20Abad%20Wheels%20of%20fortune.jpg)
+*The main reference for my work is Pachita Abad's ‘Wheel of Fortune’. The reproduction of this painting gives it life and visual richness.*
 
 ### Windmill Movement Inspiration
 
